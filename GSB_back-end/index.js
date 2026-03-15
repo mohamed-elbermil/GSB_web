@@ -34,6 +34,7 @@ app.use(express.json());
 const corsOptions = {
     origin: [
         'https://gsb-web.onrender.com',
+        'https://gsb-web-1.onrender.com',
         'http://localhost:5173',
         'http://localhost:3000'
     ],
