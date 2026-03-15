@@ -4,6 +4,8 @@ import AddBillModal from './AddBillModal';
 import EditBillModal from './EditBillModal';
 import '../styles/Bills.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 // Composant pour afficher la liste des factures
 export function BillsList({ userRole = 'user' }) {
   const [bills, setBills] = useState([]);
@@ -21,14 +23,17 @@ export function BillsList({ userRole = 'user' }) {
         setLoading(true);
         setError(null);
         
-        // Récupérer le token depuis localStorage
-        const authToken = localStorage.getItem('token');
+        // Récupérer le token depuis localStorage ou sessionStorage
+        const authToken = localStorage.getItem('token') || sessionStorage.getItem('token');
         
         if (!authToken) {
           throw new Error('Token d\'authentification manquant');
         }
         
+        console.log('=== DÉBUT FETCH BILLS ===');
+        console.log('Rôle utilisateur passé au composant:', userRole);
         console.log('Token utilisé pour bills:', authToken ? 'Présent' : 'Absent');
+        console.log('URL appelée:', `${API_URL}/bills`);
         
         const response = await fetch(`${API_URL}/bills`, {
           method: 'GET',  
@@ -37,19 +42,26 @@ export function BillsList({ userRole = 'user' }) {
             'Authorization': `Bearer ${authToken}`,
           },
         });
-        
 
         console.log('Statut réponse bills:', response.status);
+        console.log('Headers réponse:', response.headers);
 
         if (!response.ok) {
+          const errorText = await response.text();
+          console.log('Erreur réponse:', errorText);
           if (response.status === 401) {
             throw new Error('Token d\'authentification invalide ou expiré');
           }
-          throw new Error(`Erreur HTTP: ${response.status}`);
+          throw new Error(`Erreur HTTP: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
-        console.log('Données factures reçues:', data);
+        console.log('=== DONNÉES REÇUES ===');
+        console.log('Type de données:', typeof data);
+        console.log('Est un tableau?', Array.isArray(data));
+        console.log('Données brutes:', data);
+        console.log('Nombre de factures reçues:', Array.isArray(data) ? data.length : 'N/A');
+        console.log('Rôle utilisateur:', userRole);
         
         // S'assurer que data est un tableau
         if (Array.isArray(data)) {
@@ -104,7 +116,7 @@ export function BillsList({ userRole = 'user' }) {
   const handleDeleteBill = async (billId) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cette facture ?')) {
       try {
-        const authToken = localStorage.getItem('token');
+        const authToken = localStorage.getItem('token') || sessionStorage.getItem('token');
         
         if (!authToken) {
           throw new Error('Token d\'authentification manquant');
@@ -163,13 +175,17 @@ export function BillsList({ userRole = 'user' }) {
   return (
     <div className="bills-container">
       <div className="bills-header">
-        <h2 className="bills-title">Mes Factures</h2>
-        <button 
-          className="add-bill-button"
-          onClick={openAddModal}
-        >
-          <MdAdd /> Ajouter une facture
-        </button>
+        <h2 className="bills-title">
+          {userRole === 'admin' ? 'Toutes les Factures' : 'Mes Factures'}
+        </h2>
+        {userRole !== 'admin' && (
+          <button 
+            className="add-bill-button"
+            onClick={openAddModal}
+          >
+            <MdAdd /> Ajouter une facture
+          </button>
+        )}
       </div>
       
       {loading ? (
@@ -194,6 +210,7 @@ export function BillsList({ userRole = 'user' }) {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Utilisateur</th>
                 <th>Date</th>
                 <th>Type</th>
                 <th>Amount</th>
@@ -205,6 +222,13 @@ export function BillsList({ userRole = 'user' }) {
               {bills.map(bill => (
                 <tr key={bill._id || bill.id} className="bill-row">
                   <td className="bill-id">{bill._id || bill.id}</td>
+                  <td className="bill-user">
+                    {userRole === 'admin' && bill.user ? (
+                      bill.user.name || bill.user.email || 'Utilisateur inconnu'
+                    ) : (
+                      'Moi'
+                    )}
+                  </td>
                   <td className="bill-date">
                     {(() => {
                       if (!bill.date) return 'No date';

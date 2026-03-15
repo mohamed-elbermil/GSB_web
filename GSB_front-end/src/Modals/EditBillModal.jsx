@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/EditBillModal.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 // Fonction utilitaire pour convertir la date en format YYYY-MM-DD
 const formatDateForInput = (dateString) => {
   if (!dateString) return '';
@@ -109,7 +111,7 @@ const EditBillModal = ({ isOpen, onClose, bill, onSave }) => {
 
   const updateBill = async (billId, billData) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       console.log("billData dylan", billData);
       if (!token) {
         throw new Error('Token d\'authentification manquant');

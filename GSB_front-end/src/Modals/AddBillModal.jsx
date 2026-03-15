@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/AddBillModal.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const AddBillModal = ({ isOpen, onClose, onSave }) => {
   const [billData, setBillData] = useState({
     date: new Date(),
@@ -82,8 +84,8 @@ const AddBillModal = ({ isOpen, onClose, onSave }) => {
 
   const handleSaveBill = async (formData) => {
     try {
-      // Récupérer le token depuis localStorage
-      const token = localStorage.getItem('token');
+      // Récupérer le token depuis localStorage ou sessionStorage
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       console.log("formData dylan", formData);
       if (!token) {
         throw new Error('Token d\'authentification manquant');

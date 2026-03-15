@@ -41,6 +41,7 @@ function AdminDashboard() {
   const handleLogout = () => {
     console.log('Déconnexion admin...');
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     navigate('/');
   };
 
@@ -48,7 +49,7 @@ function AdminDashboard() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         console.log('Vérification token admin:', token ? 'Présent' : 'Absent');
         
         if (!token) {

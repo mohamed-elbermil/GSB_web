@@ -1,4 +1,5 @@
 const Bill = require('../models/Bill_model')
+const User = require('../models/user_model')
 const { uploadToS3 } = require('../utils/s3')
 
 const createBill = async (req, res) => {
@@ -41,18 +42,45 @@ const getBills = async (req, res) => {
     try {
         const { id, role } = req.user
         let bills
-        console.log("melbi", id, role)
+        console.log("Récupération factures - User ID:", id, "Role:", role)
+        console.log("Type de role:", typeof role, "Role en minuscules:", role?.toLowerCase())
 
-        if (role == "Admin") {
-            console.log("admin = ", id)
+        // Vérification plus flexible du rôle d'admin
+        const isAdmin = role && (role.toLowerCase() === 'admin' || role.toLowerCase() === 'administrator')
+        console.log("Est admin?", isAdmin)
+
+        if (isAdmin) {
+            console.log("Récupération de toutes les factures pour l'admin:", id)
+            // Pour les admins, récupérer toutes les factures sans populate pour éviter les erreurs
             bills = await Bill.find({})
+            console.log("Nombre de factures trouvées pour admin:", bills.length)
+            
+            // Ajouter manuellement les infos utilisateur pour chaque facture
+            for (let bill of bills) {
+                try {
+                    if (bill.user) {
+                        const user = await User.findById(bill.user).select('name email')
+                        bill.user = user
+                    }
+                } catch (err) {
+                    console.log("Utilisateur non trouvé pour la facture:", bill._id)
+                    bill.user = null
+                }
+            }
+            
+            // Filtrer les factures où l'utilisateur n'existe pas
+            bills = bills.filter(bill => bill.user !== null)
+            console.log("Nombre de factures finales après filtrage:", bills.length)
         } else {
-            console.log("user = ", id)
+            console.log("Récupération des factures pour l'utilisateur:", id)
             bills = await Bill.find({ user: id })
+            console.log("Nombre de factures trouvées pour user:", bills.length)
         }
-        console.log("bills", bills)
+        
+        console.log("Factures finales envoyées:", bills.length)
         res.status(200).json(bills)
     } catch (error) {
+        console.error("Erreur dans getBills:", error)
         res.status(500).json({ message: "Server error" })
     }
 }

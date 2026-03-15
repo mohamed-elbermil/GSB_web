@@ -53,7 +53,7 @@ function UserDashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         console.log('Token trouvé:', token ? 'Oui' : 'Non');
         
         if (!token) {
@@ -295,6 +295,7 @@ function UserDashboard() {
           <button className="logout-btn" onClick={() => {
             console.log('Déconnexion utilisateur...');
             localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
             navigate('/');
           }}><MdLogout /> Déconnexion</button>
         </div>
