@@ -2,10 +2,10 @@
   "name": "gsb",
   "version": "1.0.0",
   "description": "",
-  "main": "test-deploy.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node test-deploy.js",
+    "start": "node index.js",
     "build": "echo 'Build completed'"
   },
   "author": "",
