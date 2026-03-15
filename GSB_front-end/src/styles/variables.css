@@ -1,0 +1,133 @@
+/* ========================================
+   GSB - VARIABLES CSS GLOBALES
+   ======================================== */
+
+/* Couleurs principales */
+:root {
+  /* Couleurs primaires */
+  --primary-color: #667eea;
+  --primary-hover: #5a67d8;
+  --primary-light: #8b9cf7;
+  
+  /* Couleurs secondaires */
+  --secondary-color: #764ba2;
+  --secondary-hover: #6b4190;
+  
+  /* Couleurs de fond */
+  --bg-primary: #ffffff;
+  --bg-secondary: #101627;
+  --bg-dark: #2c3440;
+  --bg-darker: #1a202c;
+  
+  /* Couleurs de texte */
+  --text-primary: #2c3440;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --text-white: #ffffff;
+  --text-muted: #94a3b8;
+  
+  /* Couleurs de bordures */
+  --border-color: #e1e5e9;
+  --border-light: #f1f5f9;
+  --border-dark: #3f4a57;
+  
+  /* Couleurs de statuts */
+  --success-color: #16a34a;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  
+  --error-color: #dc2626;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  
+  --warning-color: #d97706;
+  --warning-bg: #fffbeb;
+  --warning-border: #fed7aa;
+  
+  --info-color: #0284c7;
+  --info-bg: #f0f9ff;
+  --info-border: #bae6fd;
+  
+  /* Couleurs pour les factures */
+  --bill-approved: #16a34a;
+  --bill-pending: #d97706;
+  --bill-rejected: #dc2626;
+  
+  /* Polices */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-mono: 'Fira Code', 'Courier New', monospace;
+  
+  /* Tailles de police */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  
+  /* Espacements */
+  --spacing-xs: 0.25rem;     /* 4px */
+  --spacing-sm: 0.5rem;      /* 8px */
+  --spacing-md: 0.75rem;     /* 12px */
+  --spacing-lg: 1rem;        /* 16px */
+  --spacing-xl: 1.5rem;      /* 24px */
+  --spacing-2xl: 2rem;       /* 32px */
+  --spacing-3xl: 3rem;       /* 48px */
+  --spacing-4xl: 4rem;       /* 64px */
+  
+  /* Bordures et ombres */
+  --border-radius-sm: 0.375rem;   /* 6px */
+  --border-radius-md: 0.5rem;     /* 8px */
+  --border-radius-lg: 0.75rem;    /* 12px */
+  --border-radius-xl: 1rem;       /* 16px */
+  --border-radius-2xl: 1.5rem;   /* 24px */
+  --border-radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* Thèmes sombres (optionnel) */
+[data-theme="dark"] {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2c3440;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --border-color: #3f4a57;
+}
+
+/* Thèmes personnalisés (optionnel) */
+[data-theme="blue"] {
+  --primary-color: #3b82f6;
+  --secondary-color: #1e40af;
+}
+
+[data-theme="green"] {
+  --primary-color: #10b981;
+  --secondary-color: #047857;
+}
+
+[data-theme="purple"] {
+  --primary-color: #8b5cf6;
+  --secondary-color: #7c3aed;
+}

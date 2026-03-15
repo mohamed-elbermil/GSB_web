@@ -209,9 +209,6 @@ html, body {
   font-weight: 600;
 }
 
-.search-bar {
-  width: 40%;
-}
 
 .search-bar input {
   width: 100%;
@@ -623,10 +620,12 @@ html, body {
 /* Bills Page Styles */
 .bills-container {
   padding: 1.5rem;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: #1a2027;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--bg-primary);
+    border: 1px solid #0000003d;
+    border-radius: 26px;
 }
 
 .bills-header {

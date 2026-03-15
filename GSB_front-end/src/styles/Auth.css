@@ -1,3 +1,6 @@
+/* Importation des variables CSS */
+@import url('./variables.css');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +10,7 @@
 body, html {
   width: 100%;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-family-primary);
 }
 
 .auth-container {
@@ -20,7 +23,7 @@ body, html {
 .auth-left {
   flex: 1;
   height: 100%;
-  background: url('https://images.pexels.com/photos/4349962/pexels-photo-4349962.jpeg');
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -73,11 +76,11 @@ body, html {
 .auth-right {
   flex: 1;
   height: 100%;
-  background: white;
+  background: var(--bg-primary);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
+  padding: var(--spacing-3xl);
   overflow-y: auto;
 }
 
@@ -92,15 +95,16 @@ body, html {
 }
 
 .auth-title {
-  font-size: 2rem;
+  font-size: var(--font-size-3xl);
   font-weight: 600;
-  color: #333;
-  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
 }
 
 .auth-subtitle {
-  color: #666;
-  font-size: 1rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-2xl);
 }
 
 .auth-form {
@@ -108,30 +112,32 @@ body, html {
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-xl);
 }
 
-.form-label {
+.form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  color: #333;
-  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
 }
 
 .form-input {
   width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  outline: none;
+  transition: var(--transition-base);
+  box-sizing: border-box;
 }
 
 .form-input:focus {
-  outline: none;
-  border-color: #667eea;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -179,15 +185,21 @@ body, html {
 .auth-submit {
     width: 100%;
     padding: 1em;
-    background: #7258b4;
-    color: white;
+    background: var(--primary-color);
+    color: var(--text-white);
     border: none;
-    border-radius: 48px;
-    font-size: 16px;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-base);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
+    transition: var(--transition-base);
+    margin-bottom: var(--spacing-lg);
+}
+
+.auth-submit:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 .auth-submit:disabled {
