@@ -3,6 +3,7 @@ import '../styles/AdminDashboard.css';
 import { BillsList } from '../Modals/Bills';
 import { MdSearch, MdAdd, MdEdit, MdDelete, MdCheck, MdArrowBack, MdLogout } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/gsb.png';
 
 // Fonction pour décoder un JWT
 const decodeJWT = (token) => {
@@ -170,10 +171,7 @@ function AdminDashboard() {
         <div className="admin-sidebar">
           <div className="sidebar-header">
             <div className="logo">
-              <span className="logo-g">G</span>
-              <span className="logo-s">S</span>
-              <span className="logo-b">B</span>
-              <span className="logo-dot">.</span>
+              <img src={Logo} alt="Logo" />
             </div>
             
             <div className="search-container">

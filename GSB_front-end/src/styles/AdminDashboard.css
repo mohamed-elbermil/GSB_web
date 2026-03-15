@@ -63,30 +63,7 @@ body {
   justify-content: center;
 }
 
-.logo:hover {
-  transform: scale(1.05);
-}
 
-.logo-g {
-  color: #3b82f6;
-  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-}
-
-.logo-s {
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.logo-b {
-  color: #ef4444;
-  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-}
-
-.logo-dot {
-  color: #8b5cf6;
-  margin-left: 3px;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-}
 
 /* Search bar */
 .search-container {

@@ -72,12 +72,17 @@ html, body {
 }
 
 .user-profile {
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: 1px solid #2c3440;
-  flex-shrink: 0;
+padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    position: fixed;
+    z-index: 99999;
+    top: 11px;
+    right: 4em;
+    background: none;
+    border: none;
 }
 
 .profile-avatar {
@@ -619,9 +624,9 @@ html, body {
 
 /* Bills Page Styles */
 .bills-container {
-  padding: 1.5rem;
+    padding: 1.5rem;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     overflow: auto;
     background-color: var(--bg-primary);
     border: 1px solid #0000003d;
@@ -632,14 +637,14 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem;
 }
 
 .bills-header h2 {
   font-size: 1.8rem;
   font-weight: 500;
-  color: #ffffff;
   margin: 0;
+  font-weight: 600;
 }
 
 .bills-actions {
