@@ -29,21 +29,30 @@ mongoose.connect(mongoUri)
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+
+// Configuration CORS pour autoriser le front-end Render
+const corsOptions = {
+    origin: [
+        'https://gsb-web.onrender.com',
+        'http://localhost:5173',
+        'http://localhost:3000'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 
 // --- ROUTES ---
 
 // Route d'accueil pour éviter le "Cannot GET /"
-app.use((req, res, next) => {
-    // Si on accède à la racine, on renvoie un message de bienvenue
-    if (req.url === '/') {
-        return res.status(200).json({
-            message: "Bienvenue sur l'API GSB",
-            status: "Online",
-            endpoints: ["/auth", "/users", "/bills", "/reminder"]
-        });
-    }
-    next();
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: "Bienvenue sur l'API GSB",
+        status: "Online",
+        endpoints: ["/auth", "/users", "/bills", "/reminder"]
+    });
 });
 
 // Routes de l'application
