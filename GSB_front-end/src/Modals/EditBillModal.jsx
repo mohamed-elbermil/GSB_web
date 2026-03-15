@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/EditBillModal.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://gsb-web.onrender.com';
 
 // Fonction utilitaire pour convertir la date en format YYYY-MM-DD
 const formatDateForInput = (dateString) => {

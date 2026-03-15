@@ -61,7 +61,7 @@ function UserDashboard() {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         if (!token) return;
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/bills`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://gsb-web.onrender.com'}/bills`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

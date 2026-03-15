@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/AddBillModal.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://gsb-web.onrender.com';
 
 const AddBillModal = ({ isOpen, onClose, onSave }) => {
   const [billData, setBillData] = useState({

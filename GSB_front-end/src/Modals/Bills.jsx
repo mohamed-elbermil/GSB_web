@@ -4,7 +4,7 @@ import AddBillModal from './AddBillModal';
 import EditBillModal from './EditBillModal';
 import '../styles/Bills.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://gsb-web.onrender.com';
 
 // Composant pour afficher la liste des factures
 export function BillsList({ userRole = 'user' }) {

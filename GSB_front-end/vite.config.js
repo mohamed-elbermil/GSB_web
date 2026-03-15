@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      API_URL: JSON.stringify(env.VITE_API_URL || 'http://localhost:3000')
+      API_URL: JSON.stringify(env.VITE_API_URL || 'https://gsb-web.onrender.com')
     }
   }
 })
