@@ -12,48 +12,48 @@ body, html {
 
 .auth-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 
 .auth-left {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 100%;
+  background: url('https://images.pexels.com/photos/4349962/pexels-photo-4349962.jpeg');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }
 
-.auth-left::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="20" cy="60" r="0.5" fill="white" opacity="0.15"/><circle cx="80" cy="40" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  opacity: 0.3;
-}
 
 .auth-left-content {
   position: relative;
   z-index: 1;
   text-align: center;
   color: white;
-  max-width: 400px;
+  width: 126vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
 .auth-image {
-  width: 280px;
-  height: 280px;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
   object-fit: cover;
-  margin-bottom: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  box-shadow: none;
 }
 
 .auth-quote {
@@ -72,11 +72,13 @@ body, html {
 
 .auth-right {
   flex: 1;
+  height: 100%;
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3rem;
+  overflow-y: auto;
 }
 
 .auth-form-container {
@@ -175,22 +177,17 @@ body, html {
 }
 
 .auth-submit {
-  width: 100%;
-  padding: 0.875rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
-}
-
-.auth-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    width: 100%;
+    padding: 1em;
+    background: #7258b4;
+    color: white;
+    border: none;
+    border-radius: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .auth-submit:disabled {
@@ -224,33 +221,6 @@ body, html {
   position: relative;
 }
 
-.auth-google {
-  width: 100%;
-  padding: 0.875rem;
-  background: white;
-  color: #333;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.auth-google:hover {
-  background: #f8f9fa;
-  border-color: #667eea;
-}
-
-.auth-google-icon {
-  width: 20px;
-  height: 20px;
-}
 
 .auth-switch {
   text-align: center;
@@ -304,68 +274,63 @@ body, html {
   .auth-quote {
     font-size: 1.2rem;
   }
-  
-  .auth-right {
-    padding: 2rem;
-  }
 }
 
 @media (max-width: 768px) {
   .auth-container {
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
-  
+
   .auth-left {
-    min-height: 40vh;
-    padding: 2rem 1rem;
+    display: none; /* Cacher la partie gauche sur mobile */
   }
-  
-  .auth-image {
-    width: 180px;
-    height: 180px;
-  }
-  
-  .auth-quote {
-    font-size: 1.1rem;
-  }
-  
+
   .auth-right {
-    padding: 2rem 1rem;
-    min-height: 60vh;
+    flex: 1;
+    height: auto;
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
   }
-  
+
   .auth-form-container {
     max-width: 100%;
+  }
+
+  .auth-title {
+    font-size: 1.8rem;
+  }
+
+  .form-input {
+    padding: 0.875rem;
+  }
+
+  .auth-submit {
+    padding: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
-  .auth-left {
-    padding: 1.5rem 1rem;
-  }
-  
-  .auth-image {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .auth-quote {
-    font-size: 1rem;
-  }
-  
   .auth-right {
     padding: 1.5rem 1rem;
   }
-  
+
   .auth-title {
     font-size: 1.5rem;
   }
-  
+
+  .auth-subtitle {
+    font-size: 0.9rem;
+  }
+
   .form-input {
     padding: 0.75rem;
+    font-size: 0.9rem;
   }
-  
+
   .auth-submit {
     padding: 0.75rem;
+    font-size: 0.9rem;
   }
 }
