@@ -1,14 +1,23 @@
 const AWS = require('aws-sdk')
 const { v4: uuidv4 } = require('uuid')
 
+// Vérifier si les variables S3 sont configurées
+const isS3Configured = process.env.ID && process.env.SECRET && process.env.BUCKET_NAME;
 
-const s3 = new AWS.S3({
-    accessKeyId: process.env.ID,
-    secretAccessKey: process.env.SECRET
-});
+let s3;
+if (isS3Configured) {
+    s3 = new AWS.S3({
+        accessKeyId: process.env.ID,
+        secretAccessKey: process.env.SECRET
+    });
+}
 
 const uploadToS3 = async (file) => {
     try {
+        if (!isS3Configured) {
+            throw new Error('S3 non configuré - variables manquantes');
+        }
+
         const fileExtension = file.originalname.split('.').pop()
         const key = `${uuidv4()}.${fileExtension}`
 

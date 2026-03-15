@@ -4,18 +4,25 @@ const { uploadToS3 } = require('../utils/s3')
 
 const createBill = async (req, res) => {
     try {
-        const { date, amount,merchant, description, status, type } = JSON.parse(req.body.metadata)
-        console.log(date, amount,merchant, description, status, type)
+        const { date, amount, merchant, description, status, type } = JSON.parse(req.body.metadata)
+        console.log(date, amount, merchant, description, status, type)
         const { id } = req.user
         
         // Handle file upload
         let proofUrl
         if (req.file) {
-            proofUrl = await uploadToS3(req.file)
-            // proofUrl = "http://fake-url.com/image.png"
+            // Vérifier si S3 est configuré
+            if (process.env.ID && process.env.SECRET && process.env.BUCKET_NAME) {
+                proofUrl = await uploadToS3(req.file)
+            } else {
+                // Fallback: simuler un URL si S3 n'est pas configuré
+                console.log('S3 non configuré - utilisation du fallback')
+                proofUrl = `https://via.placeholder.com/300x200.png?text=${encodeURIComponent(req.file.originalname)}`
+            }
         } else {
             throw new Error('Proof image is required', { cause: 400 })
         }
+        
         const bill = new Bill({ 
             date: date, 
             amount: amount, 
