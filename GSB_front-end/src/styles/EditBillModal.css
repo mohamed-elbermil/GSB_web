@@ -1,0 +1,420 @@
+/* EditBillModal.css */
+
+/* Overlay du modal */
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Container principal du modal */
+.edit-modal-container {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideIn 0.3s ease-out;
+  position: relative;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header du modal */
+.edit-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.edit-modal-title-section {
+  flex: 1;
+}
+
+.edit-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.edit-modal-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}
+
+.edit-modal-close-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.edit-modal-close-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+  transform: scale(1.05);
+}
+
+/* Corps du modal */
+.edit-modal-body {
+  padding: 2rem;
+  max-height: calc(90vh - 120px);
+  overflow-y: auto;
+}
+
+/* Formulaire */
+.edit-bill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Message d'erreur général */
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message::before {
+  content: "⚠️";
+  font-size: 1rem;
+}
+
+/* Groupes de formulaire */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.form-label::after {
+  content: "";
+}
+
+/* Inputs et selects */
+.form-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #fefefe;
+}
+
+.form-input:hover:not(:focus) {
+  border-color: #9ca3af;
+}
+
+.form-input.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.form-input.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Textarea spécifique */
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Texte d'erreur */
+.error-text {
+  color: #ef4444;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.error-text::before {
+  content: "•";
+  font-size: 1rem;
+}
+
+/* Actions du formulaire */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+/* Boutons */
+.btn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+  color: white;
+  border-color: #6b7280;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #4b5563;
+  border-color: #4b5563;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #6b7280;
+  border-color: #d1d5db;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: #f9fafb;
+  color: #374151;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+/* Spinner de chargement */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .edit-modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .edit-modal-container {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .edit-modal-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .edit-modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+  }
+
+  .edit-modal-body {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-modal-header {
+    padding: 1rem;
+  }
+
+  .edit-modal-body {
+    padding: 1rem;
+  }
+
+  .edit-modal-title {
+    font-size: 1.25rem;
+  }
+
+  .form-input {
+    padding: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* États de focus améliorés pour l'accessibilité */
+.form-input:focus-visible,
+.btn:focus-visible,
+.edit-modal-close-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Animation pour les erreurs */
+.error-text {
+  animation: slideInError 0.3s ease-out;
+}
+
+@keyframes slideInError {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style pour les champs requis */
+.form-label:has(+ .form-input[required])::after,
+.form-label[for] + .form-input[required] ~ .form-label::after {
+  content: " *";
+  color: #ef4444;
+  font-weight: bold;
+}
+
+/* Amélioration visuelle pour les selects */
+.form-input[type="select"],
+select.form-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+  appearance: none;
+}
+
+/* Hover effects pour une meilleure UX */
+.edit-modal-container {
+  transition: transform 0.2s ease;
+}
+
+.form-group:hover .form-label {
+  color: #111827;
+}
+
+/* Style pour les champs en lecture seule ou désactivés */
+.form-input:disabled {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.form-input:read-only {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+} 
