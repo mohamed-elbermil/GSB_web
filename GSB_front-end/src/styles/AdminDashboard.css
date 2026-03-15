@@ -50,6 +50,10 @@ body {
   gap: 1.5rem;
 }
 
+.sidebar-header img {
+width: 11em;
+}
+
 /* Logo */
 .logo {
   display: flex;

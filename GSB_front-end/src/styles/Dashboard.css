@@ -32,17 +32,16 @@ html, body {
 
 /* Sidebar Styles */
 .dashboard-sidebar {
-  width: 250px;
+width: 250px;
   height: 100vh;
-  background-color: #1a2027;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #2c3440;
   transition: all 0.3s ease;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 0 60px #00000045;
 }
 
 .sidebar-header {
@@ -194,19 +193,21 @@ padding: 2rem 1rem;
 
 /* Main Content */
 .main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-left: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-left: 250px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary);
 }
 
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1a2027;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 0;
 }
 
 .dashboard-header h1 {
@@ -233,17 +234,19 @@ padding: 2rem 1rem;
   flex: 1;
   width: 100%;
   overflow: auto;
+  background-color: var(--bg-primary);
 }
 
 .dashboard-card {
-  flex: 1;
-  min-width: 300px;
-  background-color: #1a2027;
-  border-radius: 15px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #2c3440;
+    flex: 1;
+    min-width: 300px;
+    background-color: #123259;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #2c3440; */
+    box-shadow: 0 0 81px #00000029;
 }
 
 .revenue-card {
@@ -620,6 +623,48 @@ padding: 2rem 1rem;
     width: 16px;
     height: 16px;
   }
+}
+
+/* Status Card Styles */
+
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-base);
+}
+
+.status-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.status-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.status-count {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 /* Bills Page Styles */

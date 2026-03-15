@@ -6,6 +6,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 import {MdReceipt, MdPerson, MdLogout, MdGridView } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/gsb.png';
 
 // Enregistrer les composants ChartJS nécessaires
 ChartJS.register(
@@ -48,6 +49,40 @@ function UserDashboard() {
     email: '',
     role: 'User'
   });
+
+  // État pour les données des factures
+  const [bills, setBills] = useState([]);
+  const [loadingBills, setLoadingBills] = useState(true);
+
+  // Récupérer les factures de l'utilisateur
+  useEffect(() => {
+    const fetchBills = async () => {
+      try {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        if (!token) return;
+
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/bills`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const billsData = await response.json();
+          setBills(billsData);
+          console.log('Factures récupérées:', billsData);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des factures:', error);
+      } finally {
+        setLoadingBills(false);
+      }
+    };
+
+    if (activePage === 'dashboard') {
+      fetchBills();
+    }
+  }, [activePage]);
 
   // Récupérer les informations de l'utilisateur connecté
   useEffect(() => {
@@ -134,16 +169,61 @@ function UserDashboard() {
     closeProfileModal();
   };
 
-  // Données pour le graphique linéaire
+  // Calculer les statistiques des factures
+  const calculateStats = () => {
+    if (!bills.length) return { totalAmount: 0, monthlyData: [], typeData: [], statusData: [] };
+
+    const totalAmount = bills.reduce((sum, bill) => sum + (bill.amount || 0), 0);
+    
+    // Données mensuelles (6 derniers mois)
+    const monthlyData = [];
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'];
+    const monthAmounts = new Array(6).fill(0);
+    
+    bills.forEach(bill => {
+      const billDate = new Date(bill.date || bill.createdAt);
+      const monthIndex = Math.min(5, Math.max(0, 5 - (new Date().getMonth() - billDate.getMonth())));
+      if (monthIndex >= 0 && monthIndex < 6) {
+        monthAmounts[monthIndex] += bill.amount || 0;
+      }
+    });
+    
+    months.forEach((month, index) => {
+      monthlyData.push({
+        month,
+        amount: monthAmounts[index]
+      });
+    });
+
+    // Données par type
+    const typeData = {};
+    bills.forEach(bill => {
+      const type = bill.type || 'Autre';
+      typeData[type] = (typeData[type] || 0) + (bill.amount || 0);
+    });
+
+    // Données par statut
+    const statusData = {};
+    bills.forEach(bill => {
+      const status = bill.status || 'Inconnu';
+      statusData[status] = (statusData[status] || 0) + 1;
+    });
+
+    return { totalAmount, monthlyData, typeData, statusData };
+  };
+
+  const { totalAmount, monthlyData, typeData, statusData } = calculateStats();
+
+  // Données pour le graphique d'évolution mensuelle
   const lineData = {
-    labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+    labels: monthlyData.map(d => d.month),
     datasets: [
       {
-        label: 'Revenu',
-        data: [800, 950, 1000, 1250, 1100, 1300, 1250],
+        label: 'Dépenses mensuelles',
+        data: monthlyData.map(d => d.amount),
         fill: true,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+        borderColor: 'rgba(239, 68, 68, 1)',
         tension: 0.4,
       },
     ],
@@ -159,18 +239,29 @@ function UserDashboard() {
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return value + '€';
+          }
+        }
       },
     },
   };
 
-  // Données pour le graphique à barres
+  // Données pour le graphique par type de dépenses
   const barData = {
-    labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+    labels: Object.keys(typeData),
     datasets: [
       {
-        label: 'Ventes',
-        data: [20, 35, 25, 45, 30, 40, 35],
-        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+        label: 'Montant par type',
+        data: Object.values(typeData),
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(34, 197, 94, 0.8)',
+          'rgba(168, 85, 247, 0.8)',
+          'rgba(239, 68, 68, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+        ],
       },
     ],
   };
@@ -185,6 +276,11 @@ function UserDashboard() {
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return value + '€';
+          }
+        }
       },
     },
   };
@@ -194,8 +290,8 @@ function UserDashboard() {
     <div className="dashboard-content">
       <div className="dashboard-card revenue-card">
         <div className="card-header">
-          <h3>1250€</h3>
-          <p className="card-subtitle">Revenu hebdomadaire</p>
+          <h3>{totalAmount.toFixed(2)}€</h3>
+          <p className="card-subtitle">Total des dépenses</p>
         </div>
         <div className="chart-container">
           <Line data={lineData} options={lineOptions} />
@@ -203,19 +299,33 @@ function UserDashboard() {
         <div className="card-footer">
           <button className="details-btn" onClick={() => {
             setActivePage('bills');
-          }}>Détails</button>
+          }}>Voir les factures</button>
         </div>
       </div>
 
       <div className="dashboard-card performance-card">
         <div className="card-header">
-          <h3>Performance des ventes</h3>
+          <h3>Répartition par type</h3>
         </div>
         <div className="chart-container">
           <Bar data={barData} options={barOptions} />
         </div>
         <div className="stats-info">
-          <p><strong>20%</strong> d'augmentation des ventes par rapport à la semaine dernière</p>
+          <p><strong>{bills.length}</strong> factures au total</p>
+        </div>
+      </div>
+
+      <div className="dashboard-card status-card">
+        <div className="card-header">
+          <h3>Statut des factures</h3>
+        </div>
+        <div className="status-grid">
+          {Object.entries(statusData).map(([status, count]) => (
+            <div key={status} className="status-item">
+              <span className="status-label">{status}</span>
+              <span className="status-count">{count}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -255,11 +365,7 @@ function UserDashboard() {
     <div className="dashboard-container">
       <div className="dashboard-sidebar">
         <div className="sidebar-header">
-          <div className="logo">
-            <span className="logo-g">G</span>
-            <span className="logo-s">S</span>
-            <span className="logo-b">B</span>
-          </div>
+           <img src={Logo} alt="Logo" />
         </div>
         
         <div className="user-profile">
@@ -308,9 +414,6 @@ function UserDashboard() {
             {activePage === 'bills' && 'Mes Factures'}
             {activePage === 'profile' && 'Mon Profil'}
           </h1>
-          <div className="search-bar">
-            <input type="text" placeholder="Rechercher..." />
-          </div>
         </div>
 
         {renderContent()}
