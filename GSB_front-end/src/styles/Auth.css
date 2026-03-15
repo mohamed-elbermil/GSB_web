@@ -1,5 +1,5 @@
 /* Importation des variables CSS */
-@import url('./variables.css');
+@import url("./variables.css");
 
 * {
   margin: 0;
@@ -7,7 +7,8 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   width: 100%;
   height: 100%;
   font-family: var(--font-family-primary);
@@ -23,7 +24,6 @@ body, html {
 .auth-left {
   flex: 1;
   height: 100%;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -34,7 +34,6 @@ body, html {
   position: relative;
   overflow: hidden;
 }
-
 
 .auth-left-content {
   position: relative;
@@ -183,23 +182,23 @@ body, html {
 }
 
 .auth-submit {
-    width: 100%;
-    padding: 1em;
-    background: var(--primary-color);
-    color: var(--text-white);
-    border: none;
-    border-radius: var(--border-radius-full);
-    font-size: var(--font-size-base);
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition-base);
-    margin-bottom: var(--spacing-lg);
+  width: 100%;
+  padding: 1em;
+  background: var(--primary-color);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-base);
+  margin-bottom: var(--spacing-lg);
 }
 
 .auth-submit:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .auth-submit:disabled {
@@ -216,7 +215,7 @@ body, html {
 }
 
 .auth-divider::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 0;
@@ -232,7 +231,6 @@ body, html {
   font-size: 0.9rem;
   position: relative;
 }
-
 
 .auth-switch {
   text-align: center;
@@ -277,12 +275,12 @@ body, html {
   .auth-left {
     padding: 2rem;
   }
-  
+
   .auth-image {
     width: 220px;
     height: 220px;
   }
-  
+
   .auth-quote {
     font-size: 1.2rem;
   }
