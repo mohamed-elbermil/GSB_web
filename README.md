@@ -1,8 +1,8 @@
-# GSB - Gestion des Services de Bien-être
+# GSB 
 
 ## Présentation du Projet
 
-GSB est une application web de gestion des services de bien-être permettant aux utilisateurs de gérer leurs rendez-vous, factures et rappels. Le projet offre une interface moderne pour la gestion administrative avec un système d'authentification sécurisé et des fonctionnalités de planification.
+GSB est une application web de gestion permettant aux utilisateurs de gérer leurs rendez-vous, factures et rappels. Le projet offre une interface moderne pour la gestion administrative avec un système d'authentification sécurisé et des fonctionnalités de planification.
 
 ## Stack Technique
 
